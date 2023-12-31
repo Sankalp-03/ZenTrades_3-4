@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Dashboard</title>
+  <style>
+    body {
+      background-color: #222;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    #login-container {
+      background-color: #000;
+      padding: 50px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    #username{
+        width: 50%;
+    }
+    #password{
+        width: 50%;
+    }
+    #submit{
+        background-color: rgb(95, 185, 95);
+        color: white;
+    }
+    input[type="text"],
+    input[type="password"],
+    button {
+      width: 55%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: none;
+    }
+    #forgot-password{
+        color: gray;
+    }
+    .upp{
+        margin-bottom: 7px;
+    }
+    img{
+        width: 55%;
+    }
+  </style>
+</head>
+<body>
+  <div id="login-container">
+    <img src="Company_Logo.png" alt="Company Logo" width="100" height="100">
+    <form id="login-form">
+        <div class="upp">
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+        </div>
+      <button id="submit" type="submit">Login</button>
+      <br>
+      <a href="#" id="forgot-password">Forgot your password?</a>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+  
+      // Username validation for email format
+      const emailRegex = /\S+@\S+\.\S+/;
+      if (!emailRegex.test(username)) {
+        alert('Please enter a valid email address as the username.');
+        return;
+      }
+  
+      // Password validation
+      const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@]{8,}$/;
+      if (!passwordRegex.test(password)) {
+        alert('Password must be at least 8 characters with at least one uppercase letter, one number, and no special characters except @.');
+        return;
+      }
+  
+      // Check for specific login credentials to redirect to the dashboard
+      if (password === 'SmartServTest@123') {
+        window.location.href = 'dashboard.html'; // Redirect to dashboard page
+      } else {
+        alert('Invalid username or password. Please try again.');
+      }
+    });
+  
+    document.getElementById('forgot-password').addEventListener('click', function(event) {
+      event.preventDefault();
+      // Open default email client to send reset password email
+      window.location.href = 'mailto:support@smartserv.io?subject=Password Reset Request';
+    });
+  </script>
+  
+</body>
+</html>

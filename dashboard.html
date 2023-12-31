@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blocks Section</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background-color: rgb(238, 237, 237);
+      }
+      h2 {
+        margin-left: 40px;
+        padding-top: 30px;
+        color: #333; /* Adjust color as needed */
+      }
+      .blocks-section {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        padding: 40px;
+        box-sizing: border-box;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+      .block {
+        background-color: white;
+        height: 100px;
+        box-shadow: 0 2px 4px rgba(0.1, 0.1, 0.5, 0.5); /* Adjust shadow */
+        display: flex;
+        flex-direction: column;
+        justify-content:space-between;
+        align-items: start;
+        padding: 10px;
+        padding-left: 10px;
+        position: relative; /* Added position relative */
+      }
+      .block::before { /* Create the colored strip */
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 10px; /* Adjust the width of the strip */
+        background-color: rgb(80, 206, 148); /* Color of the strip */
+      }
+      .block p:first-child {
+        font-weight: bold;
+        font-size: 1.5em;
+        margin-bottom: 5px;
+      }
+      .blockp{
+        margin-left: 10px;
+      }    
+      .blockp1{
+        margin-left: 10px;
+        color: rgb(80,206,148);
+      }  
+      .blockp2{
+        margin-left: 10px;
+      }
+      .blockp3{
+        color: red;
+        margin-left: 10px;
+      }
+      .nui{
+        background-color: white;
+        margin-left: 40px;
+        box-shadow: 0 2px 4px rgba(0.1, 0.1, 0.5, 0.5); /* Adjust shadow */
+        overflow-y: scroll;
+      }
+      .grap{
+        display: flex;
+      }
+      .headi{
+        display: flex;
+        justify-content: space-between;
+        align-content: space-between;
+      }
+      .headi1{
+        width: 50vw;
+      }
+      .headi2{
+        width: 50vw;
+      }
+  </style>
+</head>
+<body>
+  <h2>Company Metrics</h2>
+  <div class="blocks-section">
+    <div class="block">
+        <div class="blockp1">
+            <p>$406,411.29</p>
+        </div>
+        <div class="blockp2">
+            <p>Total Revenue</p>
+        </div>
+    </div>
+    <div class="block">
+        <div class="blockp">
+            <p>$620</p>
+        </div>
+        <div class="blockp2">
+            <p>Total Jobs Avg</p>
+        </div>
+    </div>
+    <div class="block">
+        <div class="blockp">
+            <p>655</p>
+        </div>
+        <div class="blockp2">
+            <p>Tickets Created</p>
+        </div>
+    </div>
+    <div class="block">
+        <div class="blockp">
+            <p>735</p>
+        </div>
+        <div class="blockp2">
+            <p>Tickets Scheduled</p>
+        </div>
+    </div>
+    <div class="block">
+        <div class="blockp3">
+            <p>$110,448.8</p>
+        </div>
+        <div class="blockp2">
+            <p>Outstanding Amount</p>
+        </div>
+    </div>
+    <div class="block">
+        <div class="blockp">
+            <p>105</p>
+        </div>
+        <div class="blockp2">
+            <p>Memberships sold</p>
+        </div>
+    </div>
+    <div class="block">
+        <div class="blockp">
+            <p>436</p>
+        </div>
+        <div class="blockp2">
+            <p>Jobs Completed</p>
+        </div>
+    </div>
+    <div class="block">
+        <div class="blockp">
+            <p>65</p>
+        </div>
+        <div class="blockp2">
+            <p>Total Revenue</p>
+        </div>
+    </div>
+  </div>
+  <div class="headi">
+    <div class="headi1">
+      <h2>Revenue by Job Location</h2>
+    </div>
+    <div class="headi2">
+      <h2>Revenue by Job Type</h2>
+    </div>
+  </div>
+  <div class="grap">
+    <div class="nui" style="width: 903px;">
+      <canvas id="myChart1" width="600" height="300"></canvas>
+    </div>
+    <div class="nui" style="width: 903px;">
+      <canvas id="myChart2" width="600" height="300"></canvas>
+    </div>
+  </div>
+  <script>
+    var data = {
+      labels: ['Everett', 'Seattle', 'Lynnwood', 'Bothell', 'Mukilteo', 'Edmonds'],
+      datasets: [{
+        label: 'Sample Dataset',
+        data: [80000, 76000, 48000, 42500, 41000, 34000],
+        backgroundColor: [
+          'rgba(80,206,148)',
+          'rgba(80,206,148)',
+          'rgba(80,206,148)',
+          'rgba(80,206,148)',
+        ],
+        borderWidth: 1,
+        barThickness: 22
+      }]
+    };
+
+    var options = {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          type: 'linear',
+          min: 0,   // Set the minimum value for the x-axis
+          max: 80000, // Set the maximum value for the x-axis
+          ticks: {
+            stepSize: 5000, // Set the interval between labels
+            callback: function(value, index, values) {
+              return value; // Return the value itself as the label
+            },
+            font: {
+              weight : 'bold'
+            }
+          },
+          title: {
+            display: true,
+            text: 'Revenue for November 2019', // Specify your x-axis title here
+            font:{
+              weight: 'bold'
+            }
+          }
+        },
+        y: {
+          grid: {
+            display: false
+          },
+          ticks:{
+            font: {
+              weight : 'bold'
+            } 
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          display: false // Hiding the legend as per your layout
+        }
+      }
+    };
+    var ctx = document.getElementById('myChart1').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'bar', // Change the type to 'bar' as 'horizontalBar' was causing issues
+      data: data,
+      options: options
+    });
+
+
+    var data = {
+      labels: ['Service Plumbing', 'Bid Work HVAC', 'Service HVAC', 'Bid Working Plumbing', 'HWT Replacement', 'Maintenance', 'Material Sale'],
+      datasets: [{
+        label: 'Sample Dataset',
+        data: [185000, 130000, 78000, 76000, 45000, 43000, 3000],
+        backgroundColor: [
+          'rgba(80,206,148)',
+          'rgba(80,206,148)',
+          'rgba(80,206,148)',
+          'rgba(80,206,148)',
+        ],
+        borderWidth: 1,
+        barThickness: 22
+      }]
+    };
+
+    var options = {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          type: 'linear',
+          min: 0,   // Set the minimum value for the x-axis
+          max: 200000, // Set the maximum value for the x-axis
+          ticks: {
+            stepSize: 20000, // Set the interval between labels
+            callback: function(value, index, values) {
+              return value; // Return the value itself as the label
+            },
+            font: {
+              weight : 'bold'
+            }
+          },
+          title: {
+            display: true,
+            text: 'Revenue for November 2019', // Specify your x-axis title here
+            font:{
+              weight: 'bold'
+            }
+          }
+        },
+        y: {
+          grid: {
+            display: false
+          },
+          ticks:{
+            font: {
+              weight : 'bold'
+            } 
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          display: false // Hiding the legend as per your layout
+        }
+      }
+    };
+    var ctx = document.getElementById('myChart2').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'bar', // Change the type to 'bar' as 'horizontalBar' was causing issues
+      data: data,
+      options: options
+    });
+  </script>
+  </body>
+</html>
